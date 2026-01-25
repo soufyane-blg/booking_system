@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>CREAT BOOKING</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Service:</label>
+        <select name="service">
+            {% for service in services %}
+                <option value="{{ service.id }}">
+                    {{ service.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label>Date:</label>
+        <input type="date" name="date" required>
+        <br><br>
+
+        <label>Time:</label>
+        <input type="time" name="time" required>
+        <br><br>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="{% url 'booking_list' %}">Back</a>
+</body>
+</html>

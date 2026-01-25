@@ -1,0 +1,12 @@
+<h2>Are you sure?</h2>
+<p>
+    Service: {{ booking.service }} <br>
+    Date: {{ booking.date }} <br>
+    Time: {{ booking.time }}
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'booking_details' booking.id %}">Cancel</a>
+</form>

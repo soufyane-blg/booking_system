@@ -1,0 +1,28 @@
+<h2>Update Booking</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Service:</label>
+    <select name="service">
+        {% for service in services %}
+            <option value="{{ service.id }}"
+                {% if service.id == booking.service.id %}selected{% endif %}
+            >
+                {{ service.name }}
+            </option>
+        {% endfor %}
+    </select>
+    <br><br>
+
+    <label>Date:</label>
+    <input type="date" name="date" value="{{ booking.date }}">
+    <br><br>
+
+    <label>Time:</label>
+    <input type="time" name="time" value="{{ booking.time }}">
+    <br><br>
+
+    <button type="submit">Save changes</button>
+    <a href="{% url 'booking_details' booking.id %}">Cancel</a>
+</form>

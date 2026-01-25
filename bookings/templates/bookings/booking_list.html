@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <div>
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
+    
+    <h1>All Bookings</h1>
+
+    <a href="{% url 'booking_create' %}">Add Booking</a>
+    <br><br>
+
+    <ul>
+        {% for booking in bookings %}
+            <li>
+                {{ booking.user.username }} -
+                {{ booking.service.name }} -
+                {{ booking.date }} -
+                {{ booking.time }}
+
+                <a href="{% url 'booking_details' booking.id %}">View</a>
+            </li>
+        {% empty %}
+            <li>No bookings yet</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
