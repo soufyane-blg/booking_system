@@ -1,18 +1,19 @@
 # Booking System
 
-Simple booking system built with Django.
+A simple booking system built with Django.
 
 ## Features
-- Create bookings
-- Update bookings
-- Delete bookings
-- User permissions
-- Flash messages
+- Create bookings for services
+- Prevent booking past dates
+- Prevent duplicate bookings (same service, date, and time)
+- Django ModelForm with custom validation
 
 ## Tech Stack
 - Python
 - Django
-- SQLite
+- SQLite (local development)
 
 ## Status
-Version 1.0 - Manual CRUD implementation.
+Version 1.1  
+Booking logic implemented using Django Forms.  
+Authentication will be added next.

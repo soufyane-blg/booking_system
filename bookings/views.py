@@ -1,34 +1,30 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from  .models import Booking, Service
+from .forms import BookingForm
+from django.contrib.auth.models import User
 # Create your views here.
 
 def booking_list(request):
-    bookings = Booking.objects.all()
+    bookings = Booking.objects.all().order_by('-created_at')
     return render (request, 'bookings/booking_list.html',
          {'bookings' : bookings})
 
 def booking_create(request):
-    services = Service.objects.all()
-
+    admin_user = User.objects.first()
     if request.method == 'POST':
-        user = request.user
-        service_id = request.POST['service']
-        date = request.POST['date']
-        time = request.POST['time']
-
-        service = Service.objects.get(id=service_id)
-
-        Booking.objects.create(
-            user=user,
-            service=service,
-            date=date,
-            time=time
-        )
-        return redirect('booking_list')
-
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.user = admin_user
+            booking.save()
+            return redirect('booking_list')
+            
+    else:
+          form = BookingForm()  
+        
     return render(request, 'bookings/booking_create.html', 
-                  {'services' : services})
+                  {'form' : form})
     
 
 def booking_details(request, id):
